@@ -8,10 +8,10 @@ class CreatePasswordService {
     public async execute({ email, password }: ICreatePassword) {
         const userRepository = AppDataSource.getRepository(User);
         const user = await userRepository.findOneBy({ email });
-        if (!user) throw new AppError('Error to save new password!', 401);
+        if (!user) throw new AppError('API_ERRORS.ERROR_TO_SAVE_NEW_PASSWORD', 401);
         const newPassword = await hash(password, 8);
         const passwordMatched = await compare(password, user.password);
-        if (passwordMatched) throw new AppError('New password and old password can not be equals!', 401)
+        if (passwordMatched) throw new AppError('API_ERRORS.NEW_PASSWORD_AND_OLD_PASSWORD_CAN_NOT_BE_EQUALS', 401)
         user.password = newPassword;
         userRepository.save({...user});
         return true;

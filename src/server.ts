@@ -24,6 +24,6 @@ function clientErrorHandle(error: Error, request: Request, response: Response, n
     console.log(error)
     return response.status(500).json({
         status: 'Error',
-        message: error.message || 'Internal server error.'
+        message: error.message || 'API_ERRORS.INTERNAL_SERVER_ERROR'
     });
 }

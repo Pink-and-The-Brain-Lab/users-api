@@ -10,9 +10,9 @@ class SigninService {
     public async execute({ email, password }: ISignin) {
         const userRepository = AppDataSource.getRepository(User);
         const user = await userRepository.findOneBy({ email });
-        if (!user || !user.validated) throw new AppError('Incorrect email password combination!', 401);
+        if (!user || !user.validated) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
         const passwordMatched = await compare(password, user.password);
-        if (!passwordMatched) throw new AppError('Incorrect email password combination!', 401);
+        if (!passwordMatched) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
         const { secret, expiresIn } = authConfig.jwt;
         const token = sign({}, secret, {
             subject: user.id,

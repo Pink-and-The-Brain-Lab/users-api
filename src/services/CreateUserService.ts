@@ -13,7 +13,7 @@ class CreateUserService {
         validatePassword(password, confirmPassword);
         const userRespository = AppDataSource.getRepository(User);
         const isEmailRegistered = await userRespository.findOneBy({ email: email });
-        if (isEmailRegistered) throw new AppError('This email was registered. Please use another email');
+        if (isEmailRegistered) throw new AppError('API_ERRORS.THIS_EMAIL_WAS_REGISTERED_PLEASE_USE_ANOTHER_EMAIL');
         const hashedPassword = await hash(password, 8);
         
         const user = userRespository.create({
