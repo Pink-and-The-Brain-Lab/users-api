@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "typeorm:run": "ts-node-dev ./node_modules/typeorm/cli.js -d ./src/data-source.ts"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:run": "npm run typeorm migration:run -- -d ./src/data-source.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "@types/express": "4.17.17",
     "@types/jsonwebtoken": "9.0.2",
     "@types/node": "20.4.5",
+    "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "typescript": "5.1.6"
   },
