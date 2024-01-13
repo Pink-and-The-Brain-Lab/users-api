@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "npm run test -- --watch --coverage",
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "typeorm:run": "ts-node-dev ./node_modules/typeorm/cli.js -d ./src/data-source.ts"
@@ -24,11 +22,8 @@
     "@types/bcryptjs": "2.4.2",
     "@types/cors": "2.8.13",
     "@types/express": "4.17.17",
-    "@types/jest": "29.5.11",
     "@types/jsonwebtoken": "9.0.2",
     "@types/node": "20.4.5",
-    "jest": "29.7.0",
-    "ts-jest": "29.1.1",
     "ts-node-dev": "2.0.0",
     "typescript": "5.1.6"
   },
