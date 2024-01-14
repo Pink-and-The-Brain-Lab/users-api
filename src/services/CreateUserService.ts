@@ -3,7 +3,7 @@ import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
 import { ISignup } from "../routes/interfaces/signup.interface";
 import AppError from "../errors/AppError";
-import CreateValidationTokenService from "./CreateValidationTokenService";
+// import CreateValidationTokenService from "./CreateValidationTokenService";
 import validateEmail from "../utils/validate-email";
 import validatePassword from "../utils/validate-password";
 
@@ -31,8 +31,8 @@ class CreateUserService {
     }
 
     private async generateValidationToken(email: string) {
-        const tokenService = new CreateValidationTokenService();
-        return await tokenService.execute(email);
+        // const tokenService = new CreateValidationTokenService();
+        // return await tokenService.execute(email);
     }
 }
 
