@@ -3,9 +3,9 @@ import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
 import { ISignup } from "../routes/interfaces/signup.interface";
 import AppError from "../errors/AppError";
-// import CreateValidationTokenService from "./CreateValidationTokenService";
 import validateEmail from "../utils/validate-email";
 import validatePassword from "../utils/validate-password";
+import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
 
 class CreateUserService {
     public async execute({ email, name, password, confirmPassword, allowZellimCommunicate, recieveInformation }: ISignup) {
@@ -26,14 +26,12 @@ class CreateUserService {
         });
 
         await userRespository.save(user);
-        await this.generateValidationToken(email);
+        const rabbitMqService = new RabbitMqMessagesProducerService();
+        await rabbitMqService.sendEmailtoTokenAPI(email);
         return user;
     }
 
-    private async generateValidationToken(email: string) {
-        // const tokenService = new CreateValidationTokenService();
-        // return await tokenService.execute(email);
-    }
+    
 }
 
 export default CreateUserService;
