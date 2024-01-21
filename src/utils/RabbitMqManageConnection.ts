@@ -4,10 +4,15 @@ import { RabbitMqQueues } from './rabbitmq-queues.enum';
 class RabbitMqManageConnection {
     private CONNECTION: any;
 
-    async createChannel(queueName: RabbitMqQueues) {
+    private async createConnection() {
+        if (this.CONNECTION) return;
         this.CONNECTION = await amqplib.connect('amqp://localhost');
+    }
+
+    async createChannel(queueName: RabbitMqQueues, exclusive = false) {
+        await this.createConnection();
         const channel = await this.CONNECTION.createChannel();
-        await channel.assertQueue(queueName);
+        await channel.assertQueue(queueName, { exclusive });
         return channel;
     }
     

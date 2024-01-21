@@ -11,7 +11,7 @@ class CreatePasswordService {
         if (!user) throw new AppError('API_ERRORS.ERROR_TO_SAVE_NEW_PASSWORD', 401);
         const newPassword = await hash(password, 8);
         const passwordMatched = await compare(password, user.password);
-        if (passwordMatched) throw new AppError('API_ERRORS.NEW_PASSWORD_AND_OLD_PASSWORD_CAN_NOT_BE_EQUALS', 401)
+        if (passwordMatched) throw new AppError('API_ERRORS.NEW_PASSWORD_AND_OLD_PASSWORD_CAN_NOT_BE_EQUALS', 401);
         user.password = newPassword;
         userRepository.save({...user});
         return true;
