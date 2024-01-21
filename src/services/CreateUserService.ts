@@ -6,6 +6,7 @@ import AppError from "../errors/AppError";
 import validateEmail from "../utils/validate-email";
 import validatePassword from "../utils/validate-password";
 import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
+import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
 
 class CreateUserService {
     public async execute({ email, name, password, confirmPassword, allowZellimCommunicate, recieveInformation }: ISignup) {
@@ -27,7 +28,7 @@ class CreateUserService {
 
         await userRespository.save(user);
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendEmailtoTokenAPI(email);
+        const tokenApiResponse = await rabbitMqService.sendDatatoTokenAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message, tokenApiResponse.statusCode);
         return user;
     }
