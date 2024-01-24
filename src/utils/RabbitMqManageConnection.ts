@@ -1,8 +1,8 @@
-import amqplib from 'amqplib';
+import amqplib, { Connection } from 'amqplib';
 import { RabbitMqQueues } from './rabbitmq-queues.enum';
 
 class RabbitMqManageConnection {
-    private CONNECTION: any;
+    private CONNECTION: Connection;
 
     private async createConnection() {
         if (this.CONNECTION) return;

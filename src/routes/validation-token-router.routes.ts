@@ -4,6 +4,7 @@ import AppError from "../errors/AppError";
 import { IValidateToken } from "./interfaces/validate-token.interface";
 import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
 import UpdateUserWhenTokenWasValidatedService from "../services/UpdateUserWhenTokenWasValidatedService";
+import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
 
 const validationTokenRouter = Router();
 
@@ -11,9 +12,9 @@ validationTokenRouter.post('/', async (request: Request<IValidateToken>, respons
     try {
         const { token } = request.body;
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDatatoTokenAPI<string>(token, RabbitMqQueues.VALIDATE_TOKEN);
-        if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message, tokenApiResponse.statusCode);
-        await updateUser(tokenApiResponse.email);
+        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDatatoTokenAPI<string>(token, RabbitMqQueues.VALIDATE_TOKEN);
+        if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
+        await updateUser(tokenApiResponse.email || '');
         return response.json({ validated: true });
     } catch (error) {
         next(error)
