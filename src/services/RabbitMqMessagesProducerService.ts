@@ -5,7 +5,7 @@ import { uuid } from 'uuidv4';
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 export class RabbitMqMessagesProducerService {
-    async sendDatatoTokenAPI<T>(data: T, queue: RabbitMqQueues) {
+    async sendDataToAPI<T>(data: T, queue: RabbitMqQueues) {
         const rabbitmq = new RabbitMqManageConnection();
         const channel = await rabbitmq.createChannel(RabbitMqQueues.RESPONSE_QUEUE);
         const correlationId = uuid();
@@ -19,10 +19,10 @@ export class RabbitMqMessagesProducerService {
             }
         );
 
-        return this.awaitTokenApiResponse(rabbitmq, channel, correlationId);
+        return this.awaitApiResponse(rabbitmq, channel, correlationId);
     }
 
-    private awaitTokenApiResponse(
+    private awaitApiResponse(
         connection: RabbitMqManageConnection,
         channel: Channel,
         correlationId: string

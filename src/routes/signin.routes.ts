@@ -6,9 +6,9 @@ const signinRouter = Router();
 
 signinRouter.post('/', async (request: Request<ISignin>, response: Response, next: NextFunction) => {
     try {
-        const { email, password } = request.body;
+        const { email, password, keepLoggedIn } = request.body;
         const signinService = new SigninService();
-        const login = await signinService.execute({ email, password });
+        const login = await signinService.execute({ email, password, keepLoggedIn });
         return response.json(login);
     } catch (error) {
         next(error)

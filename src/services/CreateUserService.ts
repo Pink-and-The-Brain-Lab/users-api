@@ -28,7 +28,7 @@ class CreateUserService {
 
         await userRespository.save(user);
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDatatoTokenAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
+        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         return user;
     }

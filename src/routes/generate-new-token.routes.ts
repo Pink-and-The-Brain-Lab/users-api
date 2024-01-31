@@ -13,7 +13,7 @@ generateNewTokenRouter.post('/', async (request: Request<IResetPassword>, respon
         const { email } = request.body;
         validateEmail(email);
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDatatoTokenAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
+        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDataToAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         return response.json({ created: true });
     } catch (error) {

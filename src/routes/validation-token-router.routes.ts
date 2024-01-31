@@ -12,7 +12,7 @@ validationTokenRouter.post('/', async (request: Request<IValidateToken>, respons
     try {
         const { token } = request.body;
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDatatoTokenAPI<string>(token, RabbitMqQueues.VALIDATE_TOKEN);
+        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDataToAPI<string>(token, RabbitMqQueues.VALIDATE_TOKEN);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         await updateUser(tokenApiResponse.email || '');
         return response.json({ validated: true });

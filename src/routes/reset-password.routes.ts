@@ -12,8 +12,8 @@ resetPasswordRouter.post('/', async (request: Request<IResetPassword>, response:
         const { email } = request.body;
         validateEmail(email);
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDatatoTokenAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
-        if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message, tokenApiResponse.statusCode);
+        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
+        if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         return response.json(tokenApiResponse);
     } catch (error) {
         next(error)
