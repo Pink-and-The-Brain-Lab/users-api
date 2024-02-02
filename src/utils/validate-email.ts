@@ -1,9 +1,7 @@
 import AppError from "../errors/AppError";
+import { ValidateEmail } from "millez-lib-api";
 
-const validateEmail = (email: string) => {
-    const regexp = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$');
-    const isValidEmail = regexp.test(email);
-    if (!isValidEmail) throw new AppError('INVALID_EMAIL');
-}
-
-export default validateEmail;
+export const validateEmail = (email: string) => {
+    const validateEmail = new ValidateEmail().validate(email);
+    if (!validateEmail) throw new AppError('INVALID_EMAIL');
+};

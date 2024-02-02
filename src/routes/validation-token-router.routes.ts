@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { RabbitMqMessagesProducerService } from "../services/RabbitMqMessagesProducerService";
 import AppError from "../errors/AppError";
 import { IValidateToken } from "./interfaces/validate-token.interface";
-import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
+import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import UpdateUserWhenTokenWasValidatedService from "../services/UpdateUserWhenTokenWasValidatedService";
 import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
 

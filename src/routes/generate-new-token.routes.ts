@@ -2,9 +2,9 @@ import { NextFunction, Request, Response, Router } from "express";
 import { IResetPassword } from "./interfaces/reset-password.interface";
 import { RabbitMqMessagesProducerService } from "../services/RabbitMqMessagesProducerService";
 import AppError from "../errors/AppError";
-import validateEmail from "../utils/validate-email";
-import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
+import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
+import { validateEmail } from "../utils/validate-email";
 
 const generateNewTokenRouter = Router();
 

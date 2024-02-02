@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
-import validateEmail from "../utils/validate-email";
-import validatePassword from "../utils/validate-password";
 import { ICreatePassword } from "./interfaces/create-password.interface";
 import CreatePasswordService from "../services/CreatePasswordService";
+import { validateEmail } from "../utils/validate-email";
+import { validatePassword } from "../utils/validate-password";
 
 const createPasswordRouter = Router();
 

@@ -4,7 +4,7 @@ import AppError from "../errors/AppError";
 import { compare } from "bcryptjs";
 import { ISignin } from "../routes/interfaces/signin.interface";
 import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
-import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
+import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IGenerateSession } from "../routes/interfaces/generate-session.inteface";
 
 class SigninService {

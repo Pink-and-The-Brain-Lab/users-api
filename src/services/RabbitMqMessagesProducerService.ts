@@ -1,12 +1,12 @@
 import { Channel, ConsumeMessage } from "amqplib";
-import RabbitMqManageConnection from "../utils/RabbitMqManageConnection";
-import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
+import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { uuid } from 'uuidv4';
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
+import RabbitMqManageConnection from "millez-lib-api/src/rabbitMQ-manage-connection/RabbitMqManageConnection";
 
 export class RabbitMqMessagesProducerService {
     async sendDataToAPI<T>(data: T, queue: RabbitMqQueues) {
-        const rabbitmq = new RabbitMqManageConnection();
+        const rabbitmq = new RabbitMqManageConnection('amqp://localhost');
         const channel = await rabbitmq.createChannel(RabbitMqQueues.RESPONSE_QUEUE);
         const correlationId = uuid();
         const message = JSON.stringify({ data });

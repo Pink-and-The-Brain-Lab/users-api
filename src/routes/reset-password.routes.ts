@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IResetPassword } from "./interfaces/reset-password.interface";
-import validateEmail from "../utils/validate-email";
 import { RabbitMqMessagesProducerService } from "../services/RabbitMqMessagesProducerService";
-import { RabbitMqQueues } from "../utils/rabbitmq-queues.enum";
+import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import AppError from "../errors/AppError";
+import { validateEmail } from "../utils/validate-email";
 
 const resetPasswordRouter = Router();
 
