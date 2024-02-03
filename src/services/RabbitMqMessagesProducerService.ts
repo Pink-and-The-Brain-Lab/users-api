@@ -2,7 +2,7 @@ import { Channel, ConsumeMessage } from "amqplib";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { uuid } from 'uuidv4';
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
-import RabbitMqManageConnection from "millez-lib-api/src/rabbitMQ-manage-connection/RabbitMqManageConnection";
+import  { RabbitMqManageConnection } from "millez-lib-api";
 
 export class RabbitMqMessagesProducerService {
     async sendDataToAPI<T>(data: T, queue: RabbitMqQueues) {
