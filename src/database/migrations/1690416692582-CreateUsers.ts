@@ -24,6 +24,14 @@ export class CreateUsers1690416692582 implements MigrationInterface {
                     type: 'varchar',
                     isNullable: false,
                 }, {
+                    name: 'cellphoneNumber',
+                    type: 'varchar',
+                    isNullable: true,
+                }, {
+                    name: 'activeProfileId',
+                    type: 'varchar',
+                    isNullable: true,
+                }, {
                     name: 'allowZellimCommunicate',
                     type: 'boolean',
                     isNullable: false,

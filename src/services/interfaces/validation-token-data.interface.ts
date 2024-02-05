@@ -5,6 +5,8 @@ export interface IValidationTokenData {
     validateTokenTime?: Date;
     createdAt?: Date;
     validated?: boolean;
+    cellphoneNumber?: string;
+    activeProfileId?: string;
     status?: string;
     message?: string;
     statusCode?: number;

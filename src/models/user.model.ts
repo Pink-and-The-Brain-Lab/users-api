@@ -23,6 +23,12 @@ class User {
 
     @Column()
     validated: boolean;
+
+    @Column()
+    cellphoneNumber: string;
+
+    @Column()
+    activeProfileId: string;
 }
 
 export default User;

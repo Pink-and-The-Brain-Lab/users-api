@@ -24,6 +24,8 @@ class CreateUserService {
             allowZellimCommunicate,
             recieveInformation,
             validated: false,
+            activeProfileId: '',
+            cellphoneNumber: '',
         });
 
         await userRespository.save(user);

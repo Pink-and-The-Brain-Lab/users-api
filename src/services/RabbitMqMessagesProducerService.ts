@@ -7,7 +7,7 @@ import  { RabbitMqManageConnection } from "millez-lib-api";
 export class RabbitMqMessagesProducerService {
     async sendDataToAPI<T>(data: T, queue: RabbitMqQueues) {
         const rabbitmq = new RabbitMqManageConnection('amqp://localhost');
-        const channel = await rabbitmq.createChannel(RabbitMqQueues.RESPONSE_QUEUE);
+        const channel = await rabbitmq.createChannel(RabbitMqQueues.USER_RESPONSE_QUEUE);
         const correlationId = uuid();
         const message = JSON.stringify({ data });
         channel.sendToQueue(
@@ -15,7 +15,7 @@ export class RabbitMqMessagesProducerService {
             Buffer.from(message),
             {
                 correlationId,
-                replyTo: RabbitMqQueues.RESPONSE_QUEUE
+                replyTo: RabbitMqQueues.USER_RESPONSE_QUEUE
             }
         );
 
@@ -28,7 +28,7 @@ export class RabbitMqMessagesProducerService {
         correlationId: string
     ): Promise<IValidationTokenData> {
         return new Promise(resolve => {
-            channel.consume(RabbitMqQueues.RESPONSE_QUEUE, (message: ConsumeMessage | null) => {
+            channel.consume(RabbitMqQueues.USER_RESPONSE_QUEUE, (message: ConsumeMessage | null) => {
                 if (message?.properties.correlationId === correlationId) {
                     const response: IValidationTokenData = JSON.parse(message.content.toString());
                     

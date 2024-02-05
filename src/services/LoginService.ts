@@ -11,7 +11,7 @@ class SigninService {
     public async execute({ email, password, keepLoggedIn }: ISignin) {
         const userRepository = AppDataSource.getRepository(User);
         const user = await userRepository.findOneBy({ email });
-        if (!user || !user.validated) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
+        if (!user || !user.validated) throw new AppError('API_ERRORS.USER_NOT_VALIDATED', 401);
         const passwordMatched = await compare(password, user.password);
         if (!passwordMatched) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
         const rabbitMqService = new RabbitMqMessagesProducerService();
