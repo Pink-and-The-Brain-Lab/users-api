@@ -3,10 +3,11 @@ import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
 import { ISignup } from "../routes/interfaces/signup.interface";
 import AppError from "../errors/AppError";
-import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { validateEmail } from "../utils/validate-email";
 import { validatePassword } from "../utils/validate-password";
+import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 class CreateUserService {
     public async execute({ email, name, password, confirmPassword, allowZellimCommunicate, recieveInformation }: ISignup) {
@@ -29,8 +30,9 @@ class CreateUserService {
         });
 
         await userRespository.save(user);
-        const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
+        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const rabbitMqService = new RabbitMqMessagesProducerService(connection);
+        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(email, RabbitMqQueues.CREATE_TOKEN, RabbitMqQueues.USER_RESPONSE_QUEUE);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         return user;
     }   

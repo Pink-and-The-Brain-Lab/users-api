@@ -36,7 +36,7 @@
     "dotenv": "16.4.1",
     "express": "4.18.2",
     "express-async-errors": "3.1.1",
-    "millez-lib-api": "0.0.16",
+    "millez-lib-api": "0.0.19",
     "pg": "8.11.1",
     "reflect-metadata": "0.1.13",
     "typeorm": "0.3.17",

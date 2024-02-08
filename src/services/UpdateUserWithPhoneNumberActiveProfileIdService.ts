@@ -1,7 +1,6 @@
 import { AppDataSource } from "../data-source";
 import AppError from "../errors/AppError";
 import User from "../models/user.model";
-import { IUpdateUserWithPhoneNumberAndActiveProfileId } from "./interfaces/update-user-with-phone-number-and-active-profile-id";
 
 class UpdateUserWithPhoneNumberActiveProfileIdService {
     public async execute(userId: string, phoneNumber: string, profileId: string) {

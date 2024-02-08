@@ -1,18 +1,19 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { RabbitMqMessagesProducerService } from "../services/RabbitMqMessagesProducerService";
 import AppError from "../errors/AppError";
 import { IValidateToken } from "./interfaces/validate-token.interface";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import UpdateUserWhenTokenWasValidatedService from "../services/UpdateUserWhenTokenWasValidatedService";
 import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
+import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 
 const validationTokenRouter = Router();
 
 validationTokenRouter.post('/', async (request: Request<IValidateToken>, response: Response, next: NextFunction) => {
     try {
         const { token } = request.body;
-        const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse: IValidationTokenData = await rabbitMqService.sendDataToAPI<string>(token, RabbitMqQueues.VALIDATE_TOKEN);
+        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const rabbitMqService = new RabbitMqMessagesProducerService(connection);
+        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(token, RabbitMqQueues.CREATE_TOKEN, RabbitMqQueues.USER_RESPONSE_QUEUE);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         await updateUser(tokenApiResponse.email || '');
         return response.json({ validated: true });

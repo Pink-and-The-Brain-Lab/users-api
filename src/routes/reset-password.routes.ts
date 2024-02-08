@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IResetPassword } from "./interfaces/reset-password.interface";
-import { RabbitMqMessagesProducerService } from "../services/RabbitMqMessagesProducerService";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import AppError from "../errors/AppError";
 import { validateEmail } from "../utils/validate-email";
+import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
 
 const resetPasswordRouter = Router();
 
@@ -11,8 +12,9 @@ resetPasswordRouter.post('/', async (request: Request<IResetPassword>, response:
     try {
         const { email } = request.body;
         validateEmail(email);
-        const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string>(email, RabbitMqQueues.CREATE_TOKEN);
+        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const rabbitMqService = new RabbitMqMessagesProducerService(connection);
+        const tokenApiResponse = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(email, RabbitMqQueues.CREATE_TOKEN, RabbitMqQueues.USER_RESPONSE_QUEUE);
         if (tokenApiResponse.statusCode) throw new AppError(tokenApiResponse.message || '', tokenApiResponse.statusCode);
         return response.json(tokenApiResponse);
     } catch (error) {
