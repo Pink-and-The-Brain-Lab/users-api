@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: "millez-users",
-    synchronize: true,
+    synchronize: false,
     logging: false,
     entities: [
         User,
