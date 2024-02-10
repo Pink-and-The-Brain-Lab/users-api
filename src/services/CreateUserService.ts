@@ -2,11 +2,10 @@ import { hash } from "bcryptjs";
 import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
 import { ISignup } from "../routes/interfaces/signup.interface";
-import AppError from "../errors/AppError";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { validateEmail } from "../utils/validate-email";
 import { validatePassword } from "../utils/validate-password";
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { AppError, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 class CreateUserService {

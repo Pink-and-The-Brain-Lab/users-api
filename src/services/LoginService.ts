@@ -1,11 +1,10 @@
 import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
-import AppError from "../errors/AppError";
 import { compare } from "bcryptjs";
 import { ISignin } from "../routes/interfaces/signin.interface";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IGenerateSession } from "../routes/interfaces/generate-session.inteface";
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { AppError, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 class SigninService {

@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IResetPassword } from "./interfaces/reset-password.interface";
-import AppError from "../errors/AppError";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
 import { validateEmail } from "../utils/validate-email";
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { AppError, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 
 const generateNewTokenRouter = Router();
 

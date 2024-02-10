@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
-import AppError from "../errors/AppError";
 import { IValidateToken } from "./interfaces/validate-token.interface";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import UpdateUserWhenTokenWasValidatedService from "../services/UpdateUserWhenTokenWasValidatedService";
 import { IValidationTokenData } from "../services/interfaces/validation-token-data.interface";
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { AppError, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 
 const validationTokenRouter = Router();
 

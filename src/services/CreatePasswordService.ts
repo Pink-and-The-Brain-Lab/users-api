@@ -1,8 +1,8 @@
 import { AppDataSource } from "../data-source";
 import User from "../models/user.model";
-import AppError from "../errors/AppError";
 import { compare, hash } from "bcryptjs";
 import { ICreatePassword } from "../routes/interfaces/create-password.interface";
+import { AppError } from "millez-lib-api";
 
 class CreatePasswordService {
     public async execute({ email, password }: ICreatePassword) {

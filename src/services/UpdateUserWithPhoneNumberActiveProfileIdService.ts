@@ -1,5 +1,5 @@
+import { AppError } from "millez-lib-api";
 import { AppDataSource } from "../data-source";
-import AppError from "../errors/AppError";
 import User from "../models/user.model";
 
 class UpdateUserWithPhoneNumberActiveProfileIdService {

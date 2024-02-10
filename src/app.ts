@@ -3,7 +3,7 @@ import express from "express";
 import routes from "./routes";
 import './database';
 import cors from 'cors';
-import clientErrorHandle from "./errors/client-error-handler";
+import { clientErrorHandle } from "millez-lib-api";
 const app = express();
 app.use(express.json());
 app.use(cors());
