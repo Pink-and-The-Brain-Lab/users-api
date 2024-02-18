@@ -20,19 +20,35 @@ class RabbitListener {
     }
 
     private async updateUserWithActiveProfileId({ userId, profileId }: IUpdateUserWithActiveProfileId): Promise<IValidationTokenData> {
-        return await new UpdateUserWithActiveProfileIdService().execute(userId, profileId);
+        try {
+            return await new UpdateUserWithActiveProfileIdService().execute(userId, profileId);
+        } catch (error) {
+            return error as any;
+        }
     }
 
     private async checkPhoneNumberDisponibility({ userId, phoneNumber }: ICheckPhoneNumberDisponibility): Promise<boolean> {
-        return await new CheckPhoneNumberDiponibilityService().execute(userId, phoneNumber);
+        try {
+            return await new CheckPhoneNumberDiponibilityService().execute(userId, phoneNumber);
+        } catch (error) {
+            return error as any;
+        }
     }
 
     private async checkEmailDisponibility({ userId, email }: ICheckEmailDisponibility): Promise<boolean> {
-        return await new CheckEmailDiponibilityService().execute(userId, email);
+        try {
+            return await new CheckEmailDiponibilityService().execute(userId, email);
+        } catch (error) {
+            return error as any;
+        }
     }
 
     private async updateUserWithPhoneNumber({ userId, phoneNumber }: ICheckPhoneNumberDisponibility): Promise<IValidationTokenData> {
-        return await new UpdateUserWithPhoneNumberService().execute(userId, phoneNumber);
+        try {
+            return await new UpdateUserWithPhoneNumberService().execute(userId, phoneNumber);
+        } catch (error) {
+            return error as any;
+        }
     }
   
 };

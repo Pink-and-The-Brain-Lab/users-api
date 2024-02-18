@@ -5,7 +5,6 @@ import User from "../models/user.model";
 class CheckPhoneNumberDiponibilityService {
     public async execute(userId: string, phoneNumber: string) {
         try {
-            console.log('CheckPhoneNumberDiponibilityService', userId, phoneNumber)
             const userRespository = AppDataSource.getRepository(User);
             const user = await userRespository.findOneBy({ cellphoneNumber: phoneNumber });
             return !(user && user?.id === userId);

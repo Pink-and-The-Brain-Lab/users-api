@@ -22,7 +22,6 @@ class SigninService {
             RabbitMqQueues.CREATE_SESSION,
             RabbitMqQueues.USER_RESPONSE_QUEUE
         );
-
         return tokenApiResponse;
     }
 }
