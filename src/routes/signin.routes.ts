@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import SigninService from "../services/LoginService";
+import SigninService from "../services/SigninService";
 import { ISignin } from "./interfaces/signin.interface";
 
 const signinRouter = Router();
