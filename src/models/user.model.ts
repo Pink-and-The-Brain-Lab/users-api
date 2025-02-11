@@ -6,28 +6,28 @@ class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column('text', { nullable: false })
     email: string;
 
-    @Column()
+    @Column('text', { nullable: false })
     name: string;
 
-    @Column()
+    @Column('text', { nullable: false })
     password: string;
 
-    @Column()
+    @Column('boolean', { nullable: false })
     allowZellimCommunicate: boolean;
 
-    @Column()
+    @Column('boolean', { nullable: false })
     recieveInformation: boolean;
 
-    @Column()
+    @Column('boolean', { nullable: false })
     validated: boolean;
 
-    @Column()
+    @Column('text', { nullable: true })
     cellphoneNumber: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     activeProfileId: string;
 }
 
