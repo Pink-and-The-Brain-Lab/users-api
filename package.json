@@ -6,7 +6,9 @@
   "scripts": {
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "typeorm:run": "npm run typeorm migration:run -- -d ./src/data-source.ts"
+    "migrations": "npm run typeorm migration:run -- -d ./src/data-source.ts",
+    "test": "npx jest --watch",
+    "docker": "docker-compose up -d"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,12 @@
     "@types/cors": "2.8.13",
     "@types/dotenv": "8.2.0",
     "@types/express": "4.17.17",
+    "@types/jest": "29.5.14",
     "@types/node": "20.4.5",
+    "@types/supertest": "6.0.2",
+    "jest": "29.7.0",
+    "supertest": "6.3.4",
+    "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "typescript": "5.1.6"
@@ -36,7 +43,7 @@
     "dotenv": "16.4.1",
     "express": "4.18.2",
     "express-async-errors": "3.1.1",
-    "millez-lib-api": "0.0.33",
+    "millez-lib-api": "0.0.35",
     "pg": "8.11.1",
     "reflect-metadata": "0.1.13",
     "typeorm": "0.3.17",
