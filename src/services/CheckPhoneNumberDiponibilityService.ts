@@ -7,7 +7,7 @@ class CheckPhoneNumberDiponibilityService {
         try {
             const userRespository = AppDataSource.getRepository(User);
             const user = await userRespository.findOneBy({ cellphoneNumber: phoneNumber });
-            return !(user && user?.id === userId);
+            return !(user && user.id === userId);
         } catch (error: any) {
             throw new AppError(error.message);
         }
