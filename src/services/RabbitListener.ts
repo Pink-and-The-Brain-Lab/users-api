@@ -8,10 +8,11 @@ import { IUpdateUserWithActiveProfileId } from './interfaces/update-user-with-ac
 import { ICheckPhoneNumberDisponibility } from './interfaces/check-phone-number-disponibility.interface';
 import { ICheckEmailDisponibility } from './interfaces/check-email-disponibility.interface';
 import UpdateUserWithPhoneNumberService from './UpdateUserWithPhoneNumberService';
+import { RABBITMQ_HOST_URL } from '../constants/rabbitmq-host-url';
 
 class RabbitListener {
     async listeners(): Promise<void> {
-        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const connection = new RabbitMqManageConnection(RABBITMQ_HOST_URL);
         const rabbitListener = new RabbitMqListener(connection);
         rabbitListener.genericListener<IValidationTokenData, IUpdateUserWithActiveProfileId>(RabbitMqQueues.UPDATE_USER_WITH_SELECTED_PROFILE_ID, this.updateUserWithActiveProfileId);
         rabbitListener.genericListener<boolean, ICheckPhoneNumberDisponibility>(RabbitMqQueues.CHECK_PHONE_NUMBER_DISPONIBILITY, this.checkPhoneNumberDisponibility);
