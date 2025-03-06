@@ -6,6 +6,7 @@ import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IGenerateSession } from "../routes/interfaces/generate-session.inteface";
 import { AppError, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
+import { RABBITMQ_HOST_URL } from "../constants/rabbitmq-host-url";
 
 class SigninService {
     public async execute({ email, password, keepLoggedIn }: ISignin) {
@@ -15,7 +16,7 @@ class SigninService {
         if (!user.validated) throw new AppError('API_ERRORS.USER_NOT_VALIDATED', 401);
         const passwordMatched = await compare(password, user.password);
         if (!passwordMatched) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
-        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const connection = new RabbitMqManageConnection(RABBITMQ_HOST_URL);
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
         const tokenApiResponse = await rabbitMqService.sendDataToAPI<IGenerateSession, IValidationTokenData>(
             { userId: user.id, keepLoggedIn },
