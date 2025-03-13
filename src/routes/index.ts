@@ -1,10 +1,10 @@
 import { Router } from "express";
-import signupRouter from "./signup.routes";
-import resetPasswordRouter from "./reset-password.routes";
-import signinRouter from "./signin.routes";
-import createPasswordRouter from "./create-password.routes";
-import generateNewTokenRouter from "./generate-new-token.routes";
-import validationTokenRouter from "./validation-token-router.routes";
+import signupRouter from "./signup";
+import resetPasswordRouter from "./reset-password";
+import signinRouter from "./signin";
+import createPasswordRouter from "./create-password";
+import generateNewTokenRouter from "./generate-new-token";
+import validationTokenRouter from "./validation-token";
 const routes = Router();
 routes.use('/sign-up', signupRouter);
 routes.use('/token-validation', validationTokenRouter);
